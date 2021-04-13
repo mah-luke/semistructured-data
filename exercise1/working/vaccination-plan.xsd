@@ -4,10 +4,32 @@
 
     <xsd:element name="vaccination-plan" type="vaccination-plan-type"/>
 
+    <xsd:element name="vaccine-type" type="vaccine-types"/>
+
     <xsd:complexType name="vaccination-plan-type">
         <xsd:all>
-            
+
             <xsd:element name="vaccine-types">
+
+                <xsd:complexType>
+                    <xsd:sequence>
+
+                        <xsd:element name="vaccine-type" maxOccurs="unbounded">
+
+                            <xsd:complexType>
+                                <xsd:sequence>
+
+                                    <xsd:element name="vaccine">
+                                        
+                                    </xsd:element>
+
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+
+                    </xsd:sequence>
+                </xsd:complexType>
+
             </xsd:element>
 
             <xsd:element name="vaccines">
