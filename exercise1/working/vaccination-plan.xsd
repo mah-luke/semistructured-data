@@ -4,7 +4,7 @@
 
     <xsd:element name="vaccination-plan" type="vaccination-plan-type"/>
 
-    <xsd:element name="vaccine-type" type="vaccine-types"/>
+    <!-- <xsd:element name="vaccine-type" type="vaccine-types"/> -->
 
     <xsd:complexType name="vaccination-plan-type">
         <xsd:all>
@@ -20,6 +20,13 @@
                                 <xsd:sequence>
 
                                     <xsd:element name="vaccine">
+                                        <xsd:complexType>
+                                            <xsd:all>
+                                                <xsd:element name="name" type="xsd:string"/>
+                                                <xsd:element name="type" type="xsd:string"/>
+                                                <xsd:element name="authorized" type="xsd:boolean"/>
+                                            </xsd:all>
+                                        </xsd:complexType>
                                         
                                     </xsd:element>
 
@@ -40,5 +47,22 @@
 
         </xsd:all>
     </xsd:complexType>
+
+    <xsd:element name="vaccines">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="vaccine" maxOccurs="unbounded">
+                    <xsd:complexType>
+                        <xsd:sequence maxOccurs="unbounded">
+                            <!-- TODO: use a prototype for vaccine!!! -->
+                            <xsd:element name="batch" minOccurs="1" maxOccurs="1"></xsd:element>
+                            <xsd:element name="info" minOccurs="0" maxOccurs="1"></xsd:element>
+                        </xsd:sequence>
+                    </xsd:complexType>
+                </xsd:element>
+
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
 
 </xsd:schema>
