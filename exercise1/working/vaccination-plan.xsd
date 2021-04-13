@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
-xmlns="http://meinnamespace.meinefirma.de"
-targetNamespace="http://meinnamespace.meinefirma.de"
-elementFormDefault="qualified">
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-<xs:element name="vaccination-plan">
-    <xs:element name="vaccine-types">
-    </vaccine-types>
+    <xsd:element name="vaccination-plan" type="vaccination-plan-type"/>
 
-    <xs:element name="vaccines">
-    </vaccines>
+    <xsd:complexType name="vaccination-plan-type">
+        <xsd:all>
+            
+            <xsd:element name="vaccine-types">
+            </xsd:element>
 
-    <xs:element name="patients">
-    </patients>
-</xs:vaccination-plan>
+            <xsd:element name="vaccines">
+            </xsd:element>
+
+            <xsd:element name="patients">
+            </xsd:element>
+
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>
