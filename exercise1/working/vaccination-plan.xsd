@@ -3,10 +3,29 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:element name="vaccination-plan" type="vaccination-plan-type">
+
         <xsd:key name="vaccineTypeKey">
             <xsd:selector xpath="vaccine-types/vaccine"></xsd:selector>
             <xsd:field xpath="@name"></xsd:field>
         </xsd:key>
+        <xsd:key name="batchKey">
+            <xsd:selector xpath="vaccines/vaccine/batch"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+        <xsd:key name="patientKeys">
+            <xsd:selector xpath="patients/patient"/>
+            <xsd:field xpath="@pid"/>
+        </xsd:key>
+
+        <xsd:keyref name="type_ref" refer="vaccineTypeKey">
+            <xsd:selector xpath="vaccines/vaccine"/>
+            <xsd:field xpath="@type_ref"/>
+        </xsd:keyref>
+        <xsd:keyref name="ref_batch" refer="batchKey">
+            <xsd:selector xpath="" />
+            <xsd:field xpath="" />
+        </xsd:keyref>
+
     </xsd:element>
 
     <xsd:complexType name="vaccination-plan-type">
@@ -32,45 +51,58 @@
                     <xsd:sequence>
 
                         <xsd:element name="vaccine" maxOccurs="unbounded">
+
                             <xsd:complexType>
                                 <xsd:sequence maxOccurs="unbounded">
-
+                                    
                                     <xsd:element name="batch" minOccurs="1" maxOccurs="1">
                                         <xsd:complexType>
                                             <xsd:attribute name="id" use="required">
                                                 <xsd:simpleType>
                                                     <xsd:restriction base="xsd:string">
                                                         <xsd:pattern value="[A-Z][a-z]{2}[A-Z]-[0-9]{4}-[0-9][A-Z][0-9]"></xsd:pattern>
-
+                                                        
                                                     </xsd:restriction>
                                                 </xsd:simpleType>
                                             </xsd:attribute>
                                         </xsd:complexType>
                                     </xsd:element>
-
+                                    
                                     <xsd:element name="info" minOccurs="0" maxOccurs="1">
                                         <xsd:complexType mixed="true">
                                             <xsd:sequence>
-
+                                                
                                                 <xsd:element name="size" minOccurs="1" maxOccurs="1" type="xsd:int"/>
                                                 <xsd:element name="order-date" minOccurs="1" maxOccurs="1" type="xsd:date" />
                                                 <xsd:sequence>
                                                     <xsd:element name="size" type="xsd:int" maxOccurs="1"/>
                                                     <xsd:element name="delivery-date" type="xsd:date" maxOccurs="3"/>
                                                 </xsd:sequence>
-
+                                                
                                             </xsd:sequence>
                                         </xsd:complexType>
                                     </xsd:element>
-
+                                    
                                 </xsd:sequence>
+
+                                <xsd:attribute name="type_ref" type="xsd:string"/>
+                                
                             </xsd:complexType>
+
+                            <!-- TODO: correct to refer correctly -->
+                            <!-- <xsd:keyref name="type_ref" refer="vaccineTypeKey">
+                                <xsd:selector xpath="vaccine"/>
+                                <xsd:field xpath="@type_ref"/>
+                            </xsd:keyref> -->
+
                         </xsd:element>
-        
+                        
                     </xsd:sequence>
                 </xsd:complexType>
-            </xsd:element>
 
+
+            </xsd:element>
+            
             <xsd:element name="patients">
                 <xsd:complexType>
                     <xsd:sequence>
