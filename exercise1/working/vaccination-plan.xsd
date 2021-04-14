@@ -30,10 +30,11 @@
 
     <xsd:complexType name="vaccination-plan-type">
         <xsd:all>
-            <xsd:element name="vaccine-types">
+            <!-- vaccine-types stores all information of different vaccine types -->
+            <xsd:element name="vaccine-types" maxOccurs="1">
                 <xsd:complexType>
-                    <xsd:sequence>
-                        <xsd:element name="vaccine">
+                    <xsd:all>
+                        <xsd:element name="vaccine" minOccurs="0">
                             <xsd:complexType>
                                 <xsd:all>
                                     <xsd:element name="name" type="xsd:string"/>
@@ -42,15 +43,16 @@
                                 </xsd:all>
                             </xsd:complexType>
                         </xsd:element>
-                    </xsd:sequence>
+                    </xsd:all>
                 </xsd:complexType>
             </xsd:element>
 
-            <xsd:element name="vaccines">
+            <!-- vaccines stores all information of ordered vaccines -->
+            <xsd:element name="vaccines" maxOccurs="1">
                 <xsd:complexType>
                     <xsd:sequence>
 
-                        <xsd:element name="vaccine" maxOccurs="unbounded">
+                        <xsd:element name="vaccine" minOccurs="0">
 
                             <xsd:complexType>
                                 <xsd:sequence maxOccurs="unbounded">
@@ -100,10 +102,10 @@
                     </xsd:sequence>
                 </xsd:complexType>
 
-
             </xsd:element>
             
-            <xsd:element name="patients">
+            <!-- patients stores all information about the patients who shall be vaccinated -->
+            <xsd:element name="patients" maxOccurs="1">
                 <xsd:complexType>
                     <xsd:sequence>
                         <xsd:element name="patient" minOccurs="0">
