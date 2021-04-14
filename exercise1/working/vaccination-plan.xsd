@@ -2,47 +2,30 @@
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
-    <xsd:element name="vaccination-plan" type="vaccination-plan-type"/>
-<!-- 
-    <xsd:element name="vaccine" type="">
-        <xsd:complexType>
-
-        </xsd:complexType>
-    </xsd:element> -->
-
-    <!-- <xsd:element name="vaccine-type" type="vaccine-types"/> -->
+    <xsd:element name="vaccination-plan" type="vaccination-plan-type">
+        <xsd:key name="vaccineTypeKey">
+            <xsd:selector xpath="vaccine-types/vaccine"></xsd:selector>
+            <xsd:field xpath="@name"></xsd:field>
+        </xsd:key>
+    </xsd:element>
 
     <xsd:complexType name="vaccination-plan-type">
         <xsd:all>
-
             <xsd:element name="vaccine-types">
                 <xsd:complexType>
                     <xsd:sequence>
-
-                        <xsd:element name="vaccine-type" maxOccurs="unbounded">
-
+                        <xsd:element name="vaccine">
                             <xsd:complexType>
-                                <xsd:sequence>
-
-                                    <xsd:element name="vaccine">
-                                        <xsd:complexType>
-                                            <xsd:all>
-                                                <xsd:element name="name" type="xsd:string"/>
-                                                <xsd:element name="type" type="xsd:string"/>
-                                                <xsd:element name="authorized" type="xsd:boolean"/>
-                                            </xsd:all>
-                                        </xsd:complexType>
-                                        
-                                    </xsd:element>
-
-                                </xsd:sequence>
+                                <xsd:all>
+                                    <xsd:element name="name" type="xsd:string"/>
+                                    <xsd:element name="type" type="xsd:string"/>
+                                    <xsd:element name="authorized" type="xsd:boolean"/>
+                                </xsd:all>
                             </xsd:complexType>
                         </xsd:element>
-
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
-
 
             <xsd:element name="vaccines">
                 <xsd:complexType>
@@ -51,7 +34,6 @@
                         <xsd:element name="vaccine" maxOccurs="unbounded">
                             <xsd:complexType>
                                 <xsd:sequence maxOccurs="unbounded">
-                                    <!-- TODO: use a prototype for vaccine!!! -->
 
                                     <xsd:element name="batch" minOccurs="1" maxOccurs="1">
                                         <xsd:complexType>
