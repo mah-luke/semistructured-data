@@ -3,12 +3,12 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:element name="vaccination-plan" type="vaccination-plan-type"/>
-
+<!-- 
     <xsd:element name="vaccine" type="">
         <xsd:complexType>
 
         </xsd:complexType>
-    </xsd:element>
+    </xsd:element> -->
 
     <!-- <xsd:element name="vaccine-type" type="vaccine-types"/> -->
 
@@ -107,11 +107,27 @@
                                     </xsd:element>
 
                                     <xsd:sequence minOccurs="0" maxOccurs="2">
-                                        <xsd:element name="vaccine" maxOccurs="1"></xsd:element>
-                                        <xsd:element name="vaccination-date" maxOccurs="1"></xsd:element>
+                                        <xsd:element name="vaccine" maxOccurs="1">
+                                            <xsd:complexType mixed="false">
+                                                <xsd:attribute name="ref-batch" type="xsd:string"/>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="vaccination-date" maxOccurs="1">
+                                            <xsd:complexType>
+                                                <xsd:attribute name="date" type="xsd:date" />
+                                            </xsd:complexType>
+                                        </xsd:element>
                                     </xsd:sequence>
 
-                                    <xsd:element name="residences" maxOccurs="1"></xsd:element>
+                                    <xsd:element name="residences" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="second" minOccurs="0" type="xsd:string"></xsd:element>
+                                                <xsd:element name="main" type="xsd:string"></xsd:element>
+                                                <xsd:element name="second" minOccurs="0" type="xsd:string"></xsd:element>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
                                 </xsd:sequence>
 
                                 <xsd:attribute name="name" type="xsd:string" use="required" />
