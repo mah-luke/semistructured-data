@@ -55,10 +55,10 @@
 
                                     <xsd:element name="batch" minOccurs="1" maxOccurs="1">
                                         <xsd:complexType>
-                                            <xsd:attribute name="id" type="xsd:ID" use="required">
+                                            <xsd:attribute name="id" use="required">
                                                 <xsd:simpleType>
                                                     <xsd:restriction base="xsd:string">
-                                                        <xsd:pattern value="^[A-Z][a-z]{2}[A-Z]-[0-9]{4}-[0-9][A-Z][0-9]$"></xsd:pattern>
+                                                        <xsd:pattern value="[A-Z][a-z]{2}[A-Z]-[0-9]{4}-[0-9][A-Z][0-9]"></xsd:pattern>
 
                                                     </xsd:restriction>
                                                 </xsd:simpleType>
@@ -114,9 +114,15 @@
                                     <xsd:element name="residences" maxOccurs="1"></xsd:element>
                                 </xsd:sequence>
 
-                                <xsd:attribute name="name" type="xsd:string"/>
+                                <xsd:attribute name="name" type="xsd:string" use="required" />
                                 <xsd:attribute name="birth_year" type="xsd:int"/>
-                                <xsd:attribute name="pid"/>
+                                <xsd:attribute name="pid" use="required">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                            <xsd:pattern value="P[0-9]+"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:attribute>
 
                             </xsd:complexType>
                         </xsd:element>
