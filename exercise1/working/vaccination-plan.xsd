@@ -91,9 +91,32 @@
 
             <xsd:element name="patients">
                 <xsd:complexType>
-                    <xsd:sequence >
-                        <xsd:element name="patient">
+                    <xsd:sequence>
+                        <xsd:element name="patient" minOccurs="0">
                             <xsd:complexType>
+                                
+                                <xsd:sequence>
+                                    <xsd:element name="risk-group" maxOccurs="1">
+                                        <xsd:simpleType>
+                                            <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="High"/>
+                                                <xsd:enumeration value="Medium"/>
+                                                <xsd:enumeration value="Low"/>
+                                            </xsd:restriction>
+                                        </xsd:simpleType>
+                                    </xsd:element>
+
+                                    <xsd:sequence minOccurs="0" maxOccurs="2">
+                                        <xsd:element name="vaccine" maxOccurs="1"></xsd:element>
+                                        <xsd:element name="vaccination-date" maxOccurs="1"></xsd:element>
+                                    </xsd:sequence>
+
+                                    <xsd:element name="residences" maxOccurs="1"></xsd:element>
+                                </xsd:sequence>
+
+                                <xsd:attribute name="name" type="xsd:string"/>
+                                <xsd:attribute name="birth_year" type="xsd:int"/>
+                                <xsd:attribute name="pid"/>
 
                             </xsd:complexType>
                         </xsd:element>
