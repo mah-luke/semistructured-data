@@ -55,7 +55,7 @@
 
                                     <xsd:element name="batch" minOccurs="1" maxOccurs="1">
                                         <xsd:complexType>
-                                            <xsd:attribute name="id" type="xsd:string" use="required">
+                                            <xsd:attribute name="id" type="xsd:ID" use="required">
                                                 <xsd:simpleType>
                                                     <xsd:restriction base="xsd:string">
                                                         <xsd:pattern value="^[A-Z][a-z]{2}[A-Z]-[0-9]{4}-[0-9][A-Z][0-9]$"></xsd:pattern>
@@ -67,22 +67,18 @@
                                     </xsd:element>
 
                                     <xsd:element name="info" minOccurs="0" maxOccurs="1">
-                                        <xsd:complexType>
+                                        <xsd:complexType mixed="true">
                                             <xsd:sequence>
-                                                <!-- necess size / necess order-date / x size paired with 1-3 delivery-date -->
+
                                                 <xsd:element name="size" minOccurs="1" maxOccurs="1" type="xsd:int"/>
                                                 <xsd:element name="order-date" minOccurs="1" maxOccurs="1" type="xsd:date" />
-                                                
                                                 <xsd:sequence>
                                                     <xsd:element name="size" type="xsd:int" maxOccurs="1"/>
                                                     <xsd:element name="delivery-date" type="xsd:date" maxOccurs="3"/>
                                                 </xsd:sequence>
 
                                             </xsd:sequence>
-                                            <!-- necess size / necess order-date / x size paired with 1-3 delivery-date -->
-                                            
                                         </xsd:complexType>
-
                                     </xsd:element>
 
                                 </xsd:sequence>
@@ -94,6 +90,16 @@
             </xsd:element>
 
             <xsd:element name="patients">
+                <xsd:complexType>
+                    <xsd:sequence >
+                        <xsd:element name="patient">
+                            <xsd:complexType>
+
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+
             </xsd:element>
 
         </xsd:all>
