@@ -33,7 +33,7 @@
             <!-- vaccine-types stores all information of different vaccine types -->
             <xsd:element name="vaccine-types" maxOccurs="1">
                 <xsd:complexType>
-                    <xsd:all>
+                    <xsd:sequence>
                         <xsd:element name="vaccine" minOccurs="0">
                             <xsd:complexType>
                                 <xsd:all>
@@ -43,7 +43,7 @@
                                 </xsd:all>
                             </xsd:complexType>
                         </xsd:element>
-                    </xsd:all>
+                    </xsd:sequence>
                 </xsd:complexType>
             </xsd:element>
 
@@ -51,14 +51,13 @@
             <xsd:element name="vaccines" maxOccurs="1">
                 <xsd:complexType>
                     <xsd:sequence>
-
                         <xsd:element name="vaccine" minOccurs="0">
 
                             <xsd:complexType>
-                                <xsd:sequence maxOccurs="unbounded">
+                                <xsd:sequence>
                                     
                                     <xsd:element name="batch" minOccurs="1" maxOccurs="1">
-                                        <xsd:complexType>
+                                        <xsd:complexType >
                                             <xsd:attribute name="id" use="required">
                                                 <xsd:simpleType>
                                                     <xsd:restriction base="xsd:string">
@@ -97,8 +96,7 @@
                                 <xsd:field xpath="@type_ref"/>
                             </xsd:keyref> -->
 
-                        </xsd:element>
-                        
+                        </xsd:element>   
                     </xsd:sequence>
                 </xsd:complexType>
 
