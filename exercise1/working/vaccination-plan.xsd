@@ -57,12 +57,11 @@
                                 <xsd:sequence>
                                     
                                     <xsd:element name="batch" minOccurs="1" maxOccurs="1">
-                                        <xsd:complexType >
+                                        <xsd:complexType>
                                             <xsd:attribute name="id" use="required">
                                                 <xsd:simpleType>
                                                     <xsd:restriction base="xsd:string">
                                                         <xsd:pattern value="[A-Z][a-z]{2}[A-Z]-[0-9]{4}-[0-9][A-Z][0-9]"></xsd:pattern>
-                                                        
                                                     </xsd:restriction>
                                                 </xsd:simpleType>
                                             </xsd:attribute>
@@ -75,7 +74,7 @@
                                                 
                                                 <xsd:element name="size" minOccurs="1" maxOccurs="1" type="xsd:int"/>
                                                 <xsd:element name="order-date" minOccurs="1" maxOccurs="1" type="xsd:date" />
-                                                <xsd:sequence>
+                                                <xsd:sequence minOccurs="0">
                                                     <xsd:element name="size" type="xsd:int" maxOccurs="1"/>
                                                     <xsd:element name="delivery-date" type="xsd:date" maxOccurs="3"/>
                                                 </xsd:sequence>
@@ -109,7 +108,7 @@
                         <xsd:element name="patient" minOccurs="0">
                             <xsd:complexType>
                                 
-                                <xsd:sequence>
+                                <xsd:sequence maxOccurs="1">
                                     <xsd:element name="risk-group" maxOccurs="1">
                                         <xsd:simpleType>
                                             <xsd:restriction base="xsd:string">
@@ -122,8 +121,12 @@
 
                                     <xsd:sequence minOccurs="0" maxOccurs="2">
                                         <xsd:element name="vaccine" maxOccurs="1">
-                                            <xsd:complexType mixed="false">
-                                                <xsd:attribute name="ref-batch" type="xsd:string"/>
+                                            <xsd:complexType>
+                                                <xsd:simpleContent>
+                                                    <xsd:extension base="xsd:string">
+                                                        <xsd:attribute name="ref-batch" type="xsd:string"/>
+                                                    </xsd:extension>
+                                                </xsd:simpleContent>
                                             </xsd:complexType>
                                         </xsd:element>
                                         <xsd:element name="vaccination-date" maxOccurs="1">
