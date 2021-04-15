@@ -28,6 +28,13 @@
 
     </xsd:element>
 
+    <xsd:simpleType name="residence">
+        <xsd:restriction base="xsd:string">
+            <!-- TODO: is this pattern needed???? Not sure / depends for usage (strict or not) -->
+            <xsd:pattern value="[A-Z][a-z]*[,][ ][A-Z]{2}" /> 
+        </xsd:restriction>
+    </xsd:simpleType>
+
     <xsd:complexType name="vaccination-plan-type">
         <xsd:all>
             <!-- vaccine-types stores all information of different vaccine types -->
@@ -122,16 +129,12 @@
                                     <xsd:sequence minOccurs="0" maxOccurs="2">
                                         <xsd:element name="vaccine" maxOccurs="1">
                                             <xsd:complexType>
-                                                <xsd:simpleContent>
-                                                    <xsd:extension base="xsd:string">
-                                                        <xsd:attribute name="ref-batch" type="xsd:string"/>
-                                                    </xsd:extension>
-                                                </xsd:simpleContent>
+                                                <xsd:attribute name="ref-batch" type="xsd:string"/>
                                             </xsd:complexType>
                                         </xsd:element>
                                         <xsd:element name="vaccination-date" maxOccurs="1">
                                             <xsd:complexType>
-                                                <xsd:attribute name="date" type="xsd:date" />
+                                                <xsd:attribute name="date" type="xsd:date"/>
                                             </xsd:complexType>
                                         </xsd:element>
                                     </xsd:sequence>
@@ -139,16 +142,22 @@
                                     <xsd:element name="residences" maxOccurs="1">
                                         <xsd:complexType>
                                             <xsd:sequence>
-                                                <xsd:element name="second" minOccurs="0" type="xsd:string"></xsd:element>
-                                                <xsd:element name="main" type="xsd:string"></xsd:element>
-                                                <xsd:element name="second" minOccurs="0" type="xsd:string"></xsd:element>
+                                                <xsd:element name="second" minOccurs="0" type="residence"/>
+                                                <xsd:element name="main" type="residence" maxOccurs="1"/>
+                                                <xsd:element name="second" minOccurs="0" type="residence"/>
                                             </xsd:sequence>
                                         </xsd:complexType>
                                     </xsd:element>
                                 </xsd:sequence>
 
                                 <xsd:attribute name="name" type="xsd:string" use="required" />
-                                <xsd:attribute name="birth_year" type="xsd:int"/>
+                                <xsd:attribute name="birth_year">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:int">
+                                            <xsd:pattern value="[1-2][0-9]{3}"></xsd:pattern>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:attribute>
                                 <xsd:attribute name="pid" use="required">
                                     <xsd:simpleType>
                                         <xsd:restriction base="xsd:string">
