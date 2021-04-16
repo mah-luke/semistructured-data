@@ -42,7 +42,7 @@
     <!-- Named parameter to make reusage possible (main or secondary residence) -->
     <xsd:simpleType name="residence">
         <xsd:restriction base="xsd:string">
-            <!-- TODO: is this pattern needed? Not clear from instructions (strict or not) -->
+            <!-- TODO: is this pattern needed? Not clear from instructions (strict or not); ask when presenting -->
             <xsd:pattern value="[A-Z][a-z]*[,][ ][A-Z]{2}" /> 
         </xsd:restriction>
     </xsd:simpleType>
