@@ -6,22 +6,27 @@
 
         <!-- global key -->
         <xsd:key name="vaccineTypeKey">
-            <xsd:selector xpath=""/>
-            <xsd:field xpath="vaccine-types/vaccine/name"/>
+            <xsd:selector xpath="vaccine-types/vaccine"/>
+            <xsd:field xpath="name"/>
         </xsd:key>
 
         <!-- global key -->
         <xsd:key name="batchKey">
-            <xsd:selector xpath=""/>
-            <xsd:field xpath="vaccines/vaccine/batch@id"/>
+            <xsd:selector xpath="vaccines/vaccine/batch"/>
+            <xsd:field xpath="@id"/>
         </xsd:key>
 
         <!-- global key -->
         <xsd:key name="patientKeys">
-            <xsd:selector xpath=""/>
-            <xsd:field xpath="patients/patient@pid"/>
+            <xsd:selector xpath="patients/patient"/>
+            <xsd:field xpath="@pid"/>
         </xsd:key>
-        
+
+        <!-- local key for residence -->
+        <xsd:unique name="residenceKey">
+            <xsd:selector xpath="patients/patient/residences"/>
+            <xsd:field xpath="residence"/>
+        </xsd:unique>
 
         <xsd:keyref name="type_ref" refer="vaccineTypeKey">
             <xsd:selector xpath="vaccines/vaccine/batch"/>
@@ -45,6 +50,7 @@
     <!-- root type -->
     <xsd:complexType name="vaccination-plan-type">
         <xsd:all>
+            
             <!-- vaccine-types stores all information of different vaccine types -->
             <xsd:element name="vaccine-types" maxOccurs="1">
                 <xsd:complexType>
@@ -103,13 +109,6 @@
                                 <xsd:attribute name="type_ref" type="xsd:string"/>
                                 
                             </xsd:complexType>
-
-                            <!-- TODO: correct to refer correctly -->
-                            <!-- <xsd:keyref name="type_ref" refer="vaccineTypeKey">
-                                <xsd:selector xpath="vaccine"/>
-                                <xsd:field xpath="@type_ref"/>
-                            </xsd:keyref> -->
-
                         </xsd:element>   
                     </xsd:sequence>
                 </xsd:complexType>
