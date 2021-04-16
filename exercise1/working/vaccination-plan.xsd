@@ -22,7 +22,7 @@
             <xsd:field xpath="@pid"/>
         </xsd:key>
 
-        <!-- local key for residence -->
+        <!-- unique restriction for residence -->
         <xsd:unique name="residenceKey">
             <xsd:selector xpath="patients/patient/residences"/>
             <xsd:field xpath="residence"/>
@@ -50,7 +50,7 @@
     <!-- root type -->
     <xsd:complexType name="vaccination-plan-type">
         <xsd:all>
-            
+
             <!-- vaccine-types stores all information of different vaccine types -->
             <xsd:element name="vaccine-types" maxOccurs="1">
                 <xsd:complexType>
