@@ -4,37 +4,45 @@
 
     <xsd:element name="vaccination-plan" type="vaccination-plan-type">
 
+        <!-- global key -->
         <xsd:key name="vaccineTypeKey">
-            <xsd:selector xpath="vaccine-types/vaccine"></xsd:selector>
-            <xsd:field xpath="@name"></xsd:field>
-        </xsd:key>
-        <xsd:key name="batchKey">
-            <xsd:selector xpath="vaccines/vaccine/batch"/>
-            <xsd:field xpath="@id"/>
-        </xsd:key>
-        <xsd:key name="patientKeys">
-            <xsd:selector xpath="patients/patient"/>
-            <xsd:field xpath="@pid"/>
+            <xsd:selector xpath=""/>
+            <xsd:field xpath="vaccine-types/vaccine/name"/>
         </xsd:key>
 
+        <!-- global key -->
+        <xsd:key name="batchKey">
+            <xsd:selector xpath=""/>
+            <xsd:field xpath="vaccines/vaccine/batch@id"/>
+        </xsd:key>
+
+        <!-- global key -->
+        <xsd:key name="patientKeys">
+            <xsd:selector xpath=""/>
+            <xsd:field xpath="patients/patient@pid"/>
+        </xsd:key>
+        
+
         <xsd:keyref name="type_ref" refer="vaccineTypeKey">
-            <xsd:selector xpath="vaccines/vaccine"/>
+            <xsd:selector xpath="vaccines/vaccine/batch"/>
             <xsd:field xpath="@type_ref"/>
         </xsd:keyref>
         <xsd:keyref name="ref_batch" refer="batchKey">
-            <xsd:selector xpath="" />
-            <xsd:field xpath="" />
+            <xsd:selector xpath="patients/patient/vaccine" />
+            <xsd:field xpath="@ref_batch" />
         </xsd:keyref>
 
     </xsd:element>
 
+    <!-- Named parameter to make reusage possible (main or secondary residence) -->
     <xsd:simpleType name="residence">
         <xsd:restriction base="xsd:string">
-            <!-- TODO: is this pattern needed???? Not sure / depends for usage (strict or not) -->
+            <!-- TODO: is this pattern needed? Not clear from instructions (strict or not) -->
             <xsd:pattern value="[A-Z][a-z]*[,][ ][A-Z]{2}" /> 
         </xsd:restriction>
     </xsd:simpleType>
 
+    <!-- root type -->
     <xsd:complexType name="vaccination-plan-type">
         <xsd:all>
             <!-- vaccine-types stores all information of different vaccine types -->
@@ -129,7 +137,7 @@
                                     <xsd:sequence minOccurs="0" maxOccurs="2">
                                         <xsd:element name="vaccine" maxOccurs="1">
                                             <xsd:complexType>
-                                                <xsd:attribute name="ref-batch" type="xsd:string"/>
+                                                <xsd:attribute name="ref_batch" type="xsd:string"/>
                                             </xsd:complexType>
                                         </xsd:element>
                                         <xsd:element name="vaccination-date" maxOccurs="1">
