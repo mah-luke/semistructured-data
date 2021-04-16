@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<vaccination-plan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="vaccination-plan.xsd">
+
+    <vaccine-types>
+
+        <vaccine>
+            <name>AstraZeneca</name>
+            <type>Vector</type>
+            <authorized>true</authorized>
+        </vaccine>        
+        
+        <vaccine>
+            <name>Biontech-Pfizer</name>
+            <type>mRNA</type>
+            <authorized>true</authorized>
+        </vaccine>
+        
+        <vaccine>
+            <name>Johnson &amp; Johnson / Janssen</name>
+            <type>Viral Vector</type>
+            <authorized>false</authorized>
+        </vaccine>
+
+        <vaccine>
+            <name>Moderna</name>
+            <type>mRNA-1273</type>
+            <authorized>true</authorized>
+        </vaccine>
+
+    </vaccine-types>
+
+    <vaccines>
+
+        <vaccine>
+            <batch id="AbcD-1234-5E6">A testbatch</batch>
+            <info>
+                <size>200000</size>
+                <order-date>2020-04-10</order-date>
+
+                <size>100000</size><delivery-date>2021-01-10</delivery-date>
+                <size>100000</size><delivery-date>2021-02-12</delivery-date><delivery-date>2021-02-13</delivery-date>
+            </info>
+
+            <batch id="AstZ-2342-2E7">A batch of AstraZeneca</batch>
+        </vaccine>
+
+        <vaccine>
+            <batch id="BioP-2340-2Z1"/>
+            <batch id="BioP-3421-0A2"/>
+        </vaccine>
+
+        <vaccine>
+            <batch id="MdnA-4382-4C1"/>
+            <batch id="MdnA-2341-7U1"/>
+        </vaccine>
+
+    </vaccines>
+
+    <patients>
+        <patient name="Elfriede Holler" pid="P01" birth_year="1955">
+            <risk-group>High</risk-group>
+
+            <vaccine ref_batch="BioP-2340-2Z1"/>
+            <vaccination-date date="2021-02-10" />
+            <vaccine ref_batch="BioP-3421-0A2"/>
+            <vaccination-date date="2020-11-02" />
+
+            <residences>
+                <second>Innsbruck, AT</second>
+                <main>Vienna, AT</main>
+                <second>Salzburg, AT</second>
+            </residences>
+        </patient>
+
+        <patient name="Hubert Maier" pid="P02" birth_year="1970">
+            <risk-group>Medium</risk-group>
+            <vaccine ref_batch="AbcD-1234-5E6" />
+            <vaccination-date date="2021-03-12" />
+
+            <residences>
+                <main>Frankfurt, DE</main>
+                <second>Vienna, AT</second>
+                <second>Berlin, DE</second>
+                <second>Zeltweg, AT</second>
+            </residences>
+        </patient>
+
+        <patient name="Max Müller" pid="P3324234" birth_year="2000">
+            <risk-group>Low</risk-group>
+
+            <residences>
+                <main>Vienna, AT</main>
+            </residences>
+        </patient>
+
+    </patients>
+</vaccination-plan>
