@@ -30,7 +30,6 @@
     </vaccine-types>
 
     <vaccines>
-
         <vaccine>
             <batch id="AbcD-1234-5E6">A testbatch</batch>
             <info>
@@ -53,7 +52,6 @@
             <batch id="MdnA-4382-4C1"/>
             <batch id="MdnA-2341-7U1"/>
         </vaccine>
-
     </vaccines>
 
     <patients>
