@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
-<!DOCTYPE vaccine-types SYSTEM "vaccination-plan.dtd">
+<!DOCTYPE vaccination-plan SYSTEM "vaccination-plan.dtd">
 
+    <vaccination-plan>
     <vaccine-types>
 
         <vaccine>
