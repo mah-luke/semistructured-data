@@ -1,29 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!ELEMENT vaccination-plan (vaccine-types, vaccines, patients)>
+<!ELEMENT vaccine ((name,type,authorized) | (batch+, info*) | EMPTY)>
 
 <!ELEMENT vaccine-types (vaccine*)>
-<!ELEMENT vaccine (name, type, authorized)>
-<!ELEMENT name (#PCDATA)>   
-<!ELEMENT type (#PCDATA)>   
-<!ELEMENT authorized (#PCDATA)>
+        <!ELEMENT name (#PCDATA)>   
+        <!ELEMENT type (#PCDATA)>   
+        <!ELEMENT authorized (#PCDATA)>
 
 <!-- check for multiplicities -->
 <!ELEMENT vaccines (vaccine*)>
-<!ELEMENT vaccine (batch+, info*)>
-<!ELEMENT info (size+, order-date+,delivery-tupel)>
-<!ELEMENT size (#PCDATA)>
-<!ELEMENT order-date (#PCDATA)>
-<!ELEMENT delivery-tupel (size, deliver-date)>
-<!ELEMENT delivery-date (#PCDATA)>
+        <!ELEMENT info (size+, order-date+,delivery-tuple)>
+            <!ELEMENT size (#PCDATA)>
+            <!ELEMENT order-date (#PCDATA)>
+            <!ELEMENT delivery-tuple (size, deliver-date)>
+            <!ELEMENT delivery-date (#PCDATA)>
 
 <!ELEMENT patients (patient*)>
-<!ELEMENT patient (risk-group,vaccination-tuple*,residences)>
-<!ELEMENT risk-group (#PCDATA)>
-<!ELEMENT vaccination-tuple (vaccine, vaccination-date)>
+    <!ELEMENT patient (risk-group,vaccination-tuple*,residences)>
+        <!ELEMENT risk-group (#PCDATA)>
+        <!ELEMENT vaccination-tuple (vaccine, vaccination-date)>
 <!-- add attributes for vaccine and vaccination-date -->
-<!ELEMENT vaccine EMPTY>
-<!ELEMENT vaccination-date EMPTY>
-<!ELEMENT residences (second*,main,second*)>
-<!ELEMENT main (#PCDATA)>
-<!ELEMENT second (#PCDATA)>
+            <!ELEMENT vaccination-date EMPTY>
+        <!ELEMENT residences (second*,main,second*)>
+            <!ELEMENT main (#PCDATA)>
+            <!ELEMENT second (#PCDATA)>
