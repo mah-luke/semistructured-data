@@ -1,0 +1,143 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <xsd:element name="vaccination-plan" type="vaccinationPlanType">
+    <xsd:key name="vaccineTypeKey">
+      <xsd:selector xpath="vaccine-types/vaccine"/>
+      <xsd:field xpath="name"/>
+    </xsd:key>
+    <xsd:key name="batchKey">
+      <xsd:selector xpath="vaccines/vaccine/batch"/>
+      <xsd:field xpath="@id"/>
+    </xsd:key>
+    <xsd:key name="patientKeys">
+      <xsd:selector xpath="patients/patient"/>
+      <xsd:field xpath="@pid"/>
+    </xsd:key>
+    <xsd:keyref name="vaccineTypeRef" refer="vaccineTypeKey">
+      <xsd:selector xpath="./vaccines/vaccine"/>
+      <xsd:field xpath="@type_ref"/>
+    </xsd:keyref>
+    <xsd:keyref name="batchRef" refer="batchKey">
+      <xsd:selector xpath="./patients/patient/vaccine"/>
+      <xsd:field xpath="@ref_batch"/>
+    </xsd:keyref>
+  </xsd:element>
+  
+  <xsd:complexType name="vaccinationPlanType">
+    <xsd:all>
+      <xsd:element name="vaccine-types" type="vaccineTypesType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="vaccines" type="vaccinesType" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="patients" type="patientsType" minOccurs="1" maxOccurs="1"/>
+    </xsd:all>
+  </xsd:complexType>
+
+  <xsd:complexType name="vaccineTypesType">
+    <xsd:sequence>
+      <xsd:element name="vaccine" type="vaccineType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  
+  <xsd:complexType name="vaccineType">
+    <xsd:all>
+      <xsd:element name="name" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	  <xsd:element name="authorized" type="xsd:boolean" minOccurs="1" maxOccurs="1"/>
+	  <xsd:element name="type" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    </xsd:all>
+  </xsd:complexType>
+  
+  <xsd:complexType name="vaccinesType">
+    <xsd:sequence>
+      <xsd:element name="vaccine" type="vaccineBatchType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+  <xsd:complexType name="vaccineBatchType">
+	  <xsd:sequence minOccurs="1" maxOccurs="unbounded">
+	    <xsd:element name="batch" type="batchType" minOccurs="1" maxOccurs="1"/>
+	    <xsd:element name="info" type="infoType" minOccurs="0" maxOccurs="1"/>
+	  </xsd:sequence>
+      <xsd:attribute name="type_ref" type="xsd:string" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="batchType">
+    <xsd:simpleContent>
+      <xsd:extension base="xsd:string">
+		<xsd:attribute name="id" type="batchIdType" use="required"/>
+      </xsd:extension>
+    </xsd:simpleContent>
+  </xsd:complexType>
+
+  <xsd:simpleType name="batchIdType">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[A-Z][a-z]{2}[A-Z]-[0-9]{4}-[0-9][A-Z][0-9]"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:complexType name="infoType" mixed="true">
+    <xsd:sequence>
+      <xsd:element name="size" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+	  <xsd:element name="order-date" type="xsd:date" minOccurs="1" maxOccurs="1"/>
+      <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+	    <xsd:element name="size" type="xsd:integer" minOccurs="1" maxOccurs="1"/>
+	    <xsd:element name="delivery-date" type="xsd:date" minOccurs="1" maxOccurs="3"/>
+      </xsd:sequence>
+    </xsd:sequence>
+	<xsd:attribute name="date" type="xsd:date" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="patientsType">
+    <xsd:sequence>
+      <xsd:element name="patient" type="patientType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:complexType name="patientType">
+	<xsd:sequence>
+	  <xsd:element name="risk-group" type="riskGroupType" minOccurs="1" maxOccurs="1"/>
+	  <xsd:sequence minOccurs = "0" maxOccurs = "2">
+	    <xsd:element name="vaccine" type="vaccinePType" minOccurs="1" maxOccurs="1"/>
+	    <xsd:element name="vaccination-date" type="vaccinationDateType" minOccurs="1" maxOccurs="1"/>
+	  </xsd:sequence>
+	  <xsd:element name="residences" type="residencesType" minOccurs="1" maxOccurs="1">
+	    <xsd:unique name="residencePlaces">
+		  <xsd:selector xpath="./second | ./main"/>
+          <xsd:field xpath="."/>
+        </xsd:unique>
+	  </xsd:element>
+	</xsd:sequence>
+    <xsd:attribute name="name" type="xsd:string" use="required"/>  
+	<xsd:attribute name="birth_year" type="xsd:int"/>  
+	<xsd:attribute name="pid" type="pidIdType" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:simpleType name="pidIdType">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="P[0-9]+"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:simpleType name="riskGroupType">
+    <xsd:restriction base="xsd:string">
+	  <xsd:enumeration value="High"/>
+	  <xsd:enumeration value="Medium"/>
+	  <xsd:enumeration value="Low"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+  
+  <xsd:complexType name="vaccinePType">
+	<xsd:attribute name="ref_batch" type="batchIdType" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="vaccinationDateType">
+    <xsd:attribute name="date" type="xsd:date" use="required"/>
+  </xsd:complexType>
+  
+  <xsd:complexType name="residencesType">
+	<xsd:sequence>
+	  <xsd:element name="second" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+	  <xsd:element name="main" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+	  <xsd:element name="second" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+	</xsd:sequence>
+  </xsd:complexType>
+  
+</xsd:schema>

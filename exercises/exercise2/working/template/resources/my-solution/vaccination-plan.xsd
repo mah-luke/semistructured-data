@@ -1,0 +1,193 @@
+<?xml version="1.0" ?>
+
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+    <xsd:element name="vaccination-plan" type="vaccination-plan-type">
+
+        <!-- global key -->
+        <xsd:key name="vaccineTypeKey">
+            <xsd:selector xpath="vaccine-types/vaccine"/>
+            <xsd:field xpath="name"/>
+        </xsd:key>
+
+        <!-- global key -->
+        <xsd:key name="batchKey">
+            <xsd:selector xpath="vaccines/vaccine/batch"/>
+            <xsd:field xpath="@id"/>
+        </xsd:key>
+
+        <!-- global key -->
+        <xsd:key name="patientKeys">
+            <xsd:selector xpath="patients/patient"/>
+            <xsd:field xpath="@pid"/>
+        </xsd:key>
+
+        <!-- unique restriction for residence -->
+
+
+        <xsd:keyref name="type_ref" refer="vaccineTypeKey">
+            <xsd:selector xpath="vaccines/vaccine/batch"/>
+            <xsd:field xpath="@type_ref"/>
+        </xsd:keyref>
+        <xsd:keyref name="ref_batch" refer="batchKey">
+            <xsd:selector xpath="patients/patient/vaccine" />
+            <xsd:field xpath="@ref_batch" />
+        </xsd:keyref>
+
+    </xsd:element>
+
+    <!-- Named parameter to make reusage possible (main or secondary residence) -->
+    <xsd:simpleType name="residence">
+        <xsd:restriction base="xsd:string">
+            <!-- TODO: is this pattern needed? Not clear from instructions (strict or not); ask when presenting -->
+            <xsd:pattern value="[A-Z][a-z]*[,][ ][A-Z]{2}" /> 
+        </xsd:restriction>
+    </xsd:simpleType>
+
+    <!-- root type -->
+    <xsd:complexType name="vaccination-plan-type">
+        <xsd:all>
+
+            <!-- vaccine-types stores all information of different vaccine types -->
+            <xsd:element name="vaccine-types" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence maxOccurs="unbounded">
+                        <xsd:element name="vaccine" minOccurs="0">
+                            <xsd:complexType>
+                                <xsd:all>
+                                    <xsd:element name="name" type="xsd:string"/>
+                                    <xsd:element name="type" type="xsd:string"/>
+                                    <xsd:element name="authorized" type="xsd:boolean"/>
+                                </xsd:all>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <!-- vaccines stores all information of ordered vaccines -->
+            <xsd:element name="vaccines" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence maxOccurs="unbounded">
+                        <xsd:element name="vaccine" minOccurs="0">
+
+                            <xsd:complexType>
+                                <xsd:sequence maxOccurs="unbounded">
+                                    
+                                    <xsd:element name="batch" minOccurs="1" maxOccurs="1">
+                                        <xsd:complexType>
+                                            <xsd:simpleContent>
+                                                <xsd:extension base="xsd:string">
+                                                    <xsd:attribute name="id" use="required">
+                                                        <xsd:simpleType>
+                                                            <xsd:restriction base="xsd:string">
+                                                                <xsd:pattern value="[A-Z][a-z]{2}[A-Z]-[0-9]{4}-[0-9][A-Z][0-9]"></xsd:pattern>
+                                                            </xsd:restriction>
+                                                        </xsd:simpleType>
+                                                    </xsd:attribute>
+                                                </xsd:extension>
+
+                                            </xsd:simpleContent>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                    
+                                    <xsd:element name="info" minOccurs="0" maxOccurs="1">
+                                        <xsd:complexType mixed="true">
+                                            <xsd:sequence>
+                                                
+                                                <xsd:element name="size" minOccurs="1" maxOccurs="1" type="xsd:int"/>
+                                                <xsd:element name="order-date" minOccurs="1" maxOccurs="1" type="xsd:date" />
+                                                <xsd:sequence minOccurs="0" maxOccurs="unbounded">
+                                                    <xsd:element name="size" type="xsd:int" maxOccurs="1"/>
+                                                    <xsd:element name="delivery-date" type="xsd:date" maxOccurs="3"/>
+                                                </xsd:sequence>
+                                                
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                    
+                                </xsd:sequence>
+
+                                <xsd:attribute name="type_ref" type="xsd:string"/>
+                                
+                            </xsd:complexType>
+                        </xsd:element>   
+                    </xsd:sequence>
+                </xsd:complexType>
+
+            </xsd:element>
+            
+            <!-- patients stores all information about the patients who shall be vaccinated -->
+            <xsd:element name="patients" maxOccurs="1">
+                <xsd:complexType>
+                    <xsd:sequence maxOccurs="unbounded">
+                        <xsd:element name="patient" minOccurs="0">
+                            <xsd:complexType>
+                                
+                                <xsd:sequence maxOccurs="1">
+                                    <xsd:element name="risk-group" maxOccurs="1">
+                                        <xsd:simpleType>
+                                            <xsd:restriction base="xsd:string">
+                                                <xsd:enumeration value="High"/>
+                                                <xsd:enumeration value="Medium"/>
+                                                <xsd:enumeration value="Low"/>
+                                            </xsd:restriction>
+                                        </xsd:simpleType>
+                                    </xsd:element>
+
+                                    <xsd:sequence minOccurs="0" maxOccurs="2">
+                                        <xsd:element name="vaccine" maxOccurs="1">
+                                            <xsd:complexType>
+                                                <xsd:attribute name="ref_batch" type="xsd:string" use="required"/>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                        <xsd:element name="vaccination-date" maxOccurs="1">
+                                            <xsd:complexType>
+                                                <xsd:attribute name="date" type="xsd:date" use="required"/>
+                                            </xsd:complexType>
+                                        </xsd:element>
+                                    </xsd:sequence>
+
+                                    <xsd:element name="residences" maxOccurs="1">
+                                        <xsd:complexType>
+                                            
+                                            <xsd:sequence>
+                                                <xsd:element name="second" minOccurs="0" maxOccurs="unbounded" type="residence"/>
+                                                <xsd:element name="main" type="residence" maxOccurs="1"/>
+                                                <xsd:element name="second" minOccurs="0" maxOccurs="unbounded" type="residence"/>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                        <xsd:unique name="residenceKey">
+                                            <xsd:selector xpath="*"/>
+                                            <xsd:field xpath="."/>
+                                        </xsd:unique>
+                                    </xsd:element>
+                                </xsd:sequence>
+
+                                <xsd:attribute name="name" type="xsd:string" use="required" />
+                                <xsd:attribute name="birth_year">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:int">
+                                            <xsd:pattern value="(19|20)[0-9]{2}"></xsd:pattern>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:attribute>
+                                <xsd:attribute name="pid" use="required">
+                                    <xsd:simpleType>
+                                        <xsd:restriction base="xsd:string">
+                                            <xsd:pattern value="P[0-9]+"/>
+                                        </xsd:restriction>
+                                    </xsd:simpleType>
+                                </xsd:attribute>
+
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+
+            </xsd:element>
+
+        </xsd:all>
+    </xsd:complexType>
+
+</xsd:schema>

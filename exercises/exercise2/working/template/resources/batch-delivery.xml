@@ -1,0 +1,18 @@
+<batch-delivery>
+	<batch description="Some important things to say" >
+		<vaccine name="Moderna" type="mRNA"/>
+		<date>2021-02-12</date>
+		<size>30000</size>
+		<order-date>2021-02-12</order-date>
+		<patient name="Max Mustermann" birth_year="1980" residence="Musterstadt, AT" risk-group="Low" >
+			<vaccination-date>2021-05-12</vaccination-date>
+		</patient>
+		<patient name="Martha Musterfrau" birth_year="1970" residence="Musterstadt, AT" risk-group="High" >
+			<vaccination-date>2021-05-07</vaccination-date>
+			<vaccination-date>2021-05-31</vaccination-date>
+		</patient>		
+	</batch>
+	<processing>
+		<batch-id>BioN-1255-7A7</batch-id>
+	</processing>
+</batch-delivery>
