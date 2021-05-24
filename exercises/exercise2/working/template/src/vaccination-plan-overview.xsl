@@ -51,14 +51,19 @@
 	
 	<!-- Insert additional templates here -->
 
-    <xsl:template name="populateTable" parameter="vaccine">
+    <xsl:template name="populateTable">
+        <xsl:param name="vaccine"/>
         <!-- TODO: implement template 
             iterate over all batch elems whose parent has type_ref attribute 
             matching parameter
         -->
+
+        
+
     </xsl:template>
 
     <xsl:template name="patient" parameter="batch">
+        <xsl:param name="batch"/>
         <!-- TODO: implement template -->
 
     </xsl:template>
