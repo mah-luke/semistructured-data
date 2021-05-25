@@ -110,13 +110,8 @@
 
         <xsl:variable name="curVacc" select="following-sibling::vaccination-date[1]/@date"/>
         <xsl:variable name="precCnt" select="count(preceding-sibling::vaccination-date)"/>
-
-        <!-- TODO: implement 1st and 2nd dose counting -->
         <xsl:value-of select="$precCnt + 1"/>.
-        dose received on <xsl:value-of select="$curVacc"/>.
-
-        <!-- output name attribute and age of patient (root), year-from-date(current-date()) -->
-        
+        dose received on <xsl:value-of select="$curVacc"/>.        
     </xsl:template>
 
     <xsl:template match="vaccine">

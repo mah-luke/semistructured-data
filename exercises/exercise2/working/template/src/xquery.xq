@@ -18,4 +18,6 @@
         }
     </vaccine>
 }
-</vaccinesByRiskGroups>    
+</vaccinesByRiskGroups>
+
+(:~ Warum nur die ersten beiden Patienten ausgeben und nicht 2 unterschiedliche oder sonst alle??? ~:)
