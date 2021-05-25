@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vaccinesByRiskGroups>
+    <vaccine name="Pfizer/BioNTech" type="mRNA">
+        <patientsCount>1</patientsCount>
+        <patient riskGroup="High">Elisabeth Drosten</patient>
+    </vaccine>
+    <vaccine name="AstraZeneca" type="Adenovirus-based">
+        <patientsCount>2</patientsCount>
+        <patient riskGroup="Medium">Lydia Bernoulli</patient>
+        <patient riskGroup="Low">Victoria Sealy Gosset</patient>
+    </vaccine>
+</vaccinesByRiskGroups>
