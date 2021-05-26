@@ -1,14 +1,13 @@
 package ssd;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.net.URL;
-import java.util.List;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 
-import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.transform.OutputKeys;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -16,12 +15,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
@@ -29,6 +24,9 @@ import org.xml.sax.helpers.XMLReaderFactory;
 public class SSD {
     private static DocumentBuilderFactory documentBuilderFactory;
     private static DocumentBuilder documentBuilder;
+    private static SAXParserFactory saxParserFactory;
+    private static SAXParser saxParser;
+    private static Validator validator;
 
 	public static void main(String[] args) throws Exception {
 		if (args.length != 3) {
@@ -49,6 +47,15 @@ public class SSD {
        documentBuilderFactory = DocumentBuilderFactory.newInstance();
        documentBuilderFactory.setNamespaceAware(true);
        documentBuilder = documentBuilderFactory.newDocumentBuilder();
+
+       Schema schema = SchemaFactory
+           .newDefaultInstance()
+           .newSchema(new File("resources/vaccination-plan.xsd"));
+       validator = schema.newValidator();
+
+       saxParserFactory = SAXParserFactory.newInstance();
+       saxParserFactory.setValidating(true);
+       saxParser = saxParserFactory.newSAXParser();
     }
 	
 	/**
@@ -66,46 +73,36 @@ public class SSD {
      */
     private static void transform(String inputPath, String batchdeliveryPath, String outputPath) throws Exception {
         // Read in the data from the vaccination-plan xml document, created in Exercise Sheet 1
-    	
-    	
-        
-        
+        Document inputDoc = readToDocument(inputPath);
+
         // Create an input source for the batch-delivery document
-
-
-		
+        VPHandler vpHandler = new VPHandler(inputDoc);
 
         // start the actual parsing
-        
-	   
-        
-       
-        // Validate file before storing        
-			
-		
-		
-		
-        
-        
+        XMLReader parser = saxParser.getXMLReader();
+        parser.setContentHandler(vpHandler);
+        parser.setErrorHandler(vpHandler);
+        parser.parse(batchdeliveryPath);
+
+        // Validate file before storing ???
+        DOMSource input = new DOMSource(inputDoc);
+//        validator.validate(input);
+
         // get the document from the VPHandler
-        
-		
-		
-		
-        
+        Document parsedDoc = vpHandler.getDocument();
+        DOMSource source = new DOMSource(parsedDoc);
+
         //validate
-        
-		
-		
-		
-		
-        
+//        validator.validate(source);
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+
         //store the document
-        
-		
-		
-		
-		
+        try (FileWriter out = new FileWriter(outputPath)){
+            StreamResult result = new StreamResult(out);
+            transformer.transform(source, result);
+        }
     }
 
     /**
@@ -116,6 +113,24 @@ public class SSD {
     public static void exit(String message) {
     	System.err.println(message);
     	System.exit(1);
+    }
+
+    /**
+     * Creates and returns a parsed XML Document from given inputPath
+     *
+     * @param inputPath path of the XML Document
+     * @return parsed Document
+     */
+    private static Document readToDocument(String inputPath) {
+        try {
+            File inputFile = new File(inputPath);
+            Document inputDoc = documentBuilder.parse(inputFile);
+            inputDoc.getDocumentElement().normalize();
+            return inputDoc;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
     }
     
 
