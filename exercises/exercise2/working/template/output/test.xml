@@ -1,115 +1,144 @@
-<?xml version="1.0" encoding="UTF-8"?><vaccination-plan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../resources/vaccination-plan.xsd">
-	<vaccine-types>
-		<vaccine> 
-			<name>Pfizer/BioNTech</name>
-			<authorized>true</authorized>
-			<type>mRNA</type>
-		</vaccine>
-		<vaccine> 
-			<name>Moderna</name>
-			<authorized>true</authorized>
-			<type>mRNA</type>
-		</vaccine>
-		<vaccine> 
-			<name>AstraZeneca</name>
-			<type>Adenovirus-based</type>
-			<authorized>true</authorized>
-		</vaccine>
-		<vaccine> 
-			<authorized>false</authorized>
-			<name>Sputnik V</name>
-			<type>Adenovirus-based</type>
-		</vaccine>
-	</vaccine-types>
+<?xml version="1.0" encoding="UTF-8"?>
+<vaccination-plan xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:noNamespaceSchemaLocation="../resources/vaccination-plan.xsd">
+    <vaccine-types>
+        <vaccine>
+            <name>Pfizer/BioNTech</name>
+            <authorized>true</authorized>
+            <type>mRNA</type>
+        </vaccine>
+        <vaccine>
+            <name>Moderna</name>
+            <authorized>true</authorized>
+            <type>mRNA</type>
+        </vaccine>
+        <vaccine>
+            <name>AstraZeneca</name>
+            <type>Adenovirus-based</type>
+            <authorized>true</authorized>
+        </vaccine>
+        <vaccine>
+            <authorized>false</authorized>
+            <name>Sputnik V</name>
+            <type>Adenovirus-based</type>
+        </vaccine>
+        <vaccine>
+            <name>Moderna1</name>
+            <type>mRNA</type>
+            <authorized>true</authorized>
+        </vaccine>
+    </vaccine-types>
 
-	<vaccines>
-		<vaccine type_ref="AstraZeneca">
-			<batch id="AstZ-5587-8B5">
-				First batch
-			</batch>
-			<info date="2021-01-01">
-				<size>5000</size> doses will be ordered on <order-date>2021-04-01</order-date>.
-			</info>
-			<batch id="AstZ-8872-3C4">
-				Second batch
-			</batch>
-			<info date="2021-03-13">
-				<size>15000</size> have been ordered on <order-date>2021-03-10</order-date>.
-			</info>
-		</vaccine>
-		<vaccine type_ref="Pfizer/BioNTech">
-			<batch id="BioN-1255-7A7">
-				Adapted batch for B.1.1.7
-			</batch>
-			<info date="2021-01-10">
-				An order for a total size of <size>16000</size> doses has been placed on <order-date>2021-01-10</order-date>.
-				<size>5500</size> doses will arrive on <delivery-date>2021-02-01</delivery-date>.
-				Additionally, <size>10500</size> doses will arrive on <delivery-date>2021-02-20</delivery-date> and <delivery-date>2021-02-21</delivery-date>.
-			</info>
-			<batch id="BioN-2726-2D9">
-				Adapted batch for B.1.1.8
-			</batch>
-		</vaccine>
-		<vaccine type_ref="Moderna">
-			<batch id="ModE-1351-3B6">
-				Adapted batch for B.1.351
-			</batch>
-			<batch id="ModE-1125-2C8">
-				Adapted batch for B.1.1.7
-			</batch>
-			<info date="2021-04-29">
-				An order for a total size of <size>10000</size> doses will be placed on <order-date>2021-05-10</order-date>.
-			</info>
-		</vaccine>
-	</vaccines>
-	
-	<patients>
-		<patient birth_year="1940" name="Elisabeth Drosten" pid="P150">
-			<risk-group>High</risk-group>
-			<vaccine ref_batch="BioN-1255-7A7"/>
-			<vaccination-date date="2021-02-05"/>
-			<vaccine ref_batch="BioN-2726-2D9"/>
-			<vaccination-date date="2021-03-01"/>
-			<residences>
-				<second>
-					Burgenland, AT
-				</second>
-				<main>
-					Vienna, AT
-				</main>
-				<second>
-					Lingen, DE
-				</second>
-				<second>
-					Downey, US
-				</second>
-				<second>
-					Woolsthorpe Manor, UK
-				</second>
-			</residences>
-		</patient>
-		<patient birth_year="1972" name="Lydia Bernoulli" pid="P27780">
-			<risk-group>Medium</risk-group>
-			<vaccine ref_batch="AstZ-8872-3C4"/>
-			<vaccination-date date="2021-05-15"/>
-			<residences>
-				<second>
-					Basel, CH
-				</second>
-				<main>
-					Vienna, AT
-				</main>
-			</residences>
-		</patient>
-		<patient name="Victoria Sealy Gosset" pid="P152847">
-			<risk-group>Low</risk-group>
-			<vaccine ref_batch="AstZ-8872-3C4"/>
-			<vaccination-date date="2021-06-30"/>
-			<residences>
-				<main>
-					Vienna, AT
-				</main>
-			</residences>
-		</patient>
-	</patients>
+    <vaccines>
+        <vaccine type_ref="AstraZeneca">
+            <batch id="AstZ-5587-8B5">
+                First batch
+            </batch>
+            <info date="2021-01-01">
+                <size>5000</size>
+                doses will be ordered on <order-date>2021-04-01</order-date>.
+            </info>
+            <batch id="AstZ-8872-3C4">
+                Second batch
+            </batch>
+            <info date="2021-03-13">
+                <size>15000</size>
+                have been ordered on <order-date>2021-03-10</order-date>.
+            </info>
+        </vaccine>
+        <vaccine type_ref="Pfizer/BioNTech">
+
+
+            <batch id="BioN-2726-2D9">
+                Adapted batch for B.1.1.8
+            </batch>
+        </vaccine>
+        <vaccine type_ref="Moderna">
+            <batch id="ModE-1351-3B6">
+                Adapted batch for B.1.351
+            </batch>
+            <batch id="ModE-1125-2C8">
+                Adapted batch for B.1.1.7
+            </batch>
+            <info date="2021-04-29">
+                An order for a total size of <size>10000</size> doses will be placed on <order-date>
+                2021-05-10</order-date>.
+            </info>
+        </vaccine>
+        <vaccine type_ref="Moderna1">
+            <batch id="AbcD-0000-1A2">Some important things to say</batch>
+            <info date="2021-02-12">
+                <size>30000</size>
+                <order-date>2021-02-12</order-date>
+            </info>
+        </vaccine>
+    </vaccines>
+
+    <patients>
+        <patient birth_year="1980" name="Max Mustermann" pid="P001">
+            <risk-group>Low</risk-group>
+            <vaccine ref_batch="AbcD-0000-1A2"/>
+            <vaccination-date date="2021-05-12"/>
+            <residences>
+                <main>Musterstadt, AT</main>
+            </residences>
+        </patient>
+        <patient birth_year="1940" name="Elisabeth Drosten" pid="P150">
+            <risk-group>High</risk-group>
+
+
+            <vaccine ref_batch="BioN-2726-2D9"/>
+            <vaccination-date date="2021-03-01"/>
+            <residences>
+                <second>
+                    Burgenland, AT
+                </second>
+                <main>
+                    Vienna, AT
+                </main>
+                <second>
+                    Lingen, DE
+                </second>
+                <second>
+                    Downey, US
+                </second>
+                <second>
+                    Woolsthorpe Manor, UK
+                </second>
+            </residences>
+        </patient>
+        <patient birth_year="1972" name="Lydia Bernoulli" pid="P27780">
+            <risk-group>Medium</risk-group>
+            <vaccine ref_batch="AstZ-8872-3C4"/>
+            <vaccination-date date="2021-05-15"/>
+            <residences>
+                <second>
+                    Basel, CH
+                </second>
+                <main>
+                    Vienna, AT
+                </main>
+            </residences>
+        </patient>
+        <patient name="Victoria Sealy Gosset" pid="P152847">
+            <risk-group>Low</risk-group>
+            <vaccine ref_batch="AstZ-8872-3C4"/>
+            <vaccination-date date="2021-06-30"/>
+            <residences>
+                <main>
+                    Vienna, AT
+                </main>
+            </residences>
+        </patient>
+        <patient birth_year="1970" name="Martha Musterfrau" pid="P000">
+            <risk-group>High</risk-group>
+            <vaccine ref_batch="AbcD-0000-1A2"/>
+            <vaccination-date date="2021-05-07"/>
+            <vaccine ref_batch="AbcD-0000-1A2"/>
+            <vaccination-date date="2021-05-31"/>
+            <residences>
+                <main>Musterfrauenstadt, AT</main>
+            </residences>
+        </patient>
+    </patients>
 </vaccination-plan>

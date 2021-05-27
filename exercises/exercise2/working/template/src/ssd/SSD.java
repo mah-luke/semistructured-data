@@ -86,14 +86,14 @@ public class SSD {
 
         // Validate file before storing ???
         DOMSource input = new DOMSource(inputDoc);
-//        validator.validate(input);
+        validator.validate(input);
 
         // get the document from the VPHandler
         Document parsedDoc = vpHandler.getDocument();
         DOMSource source = new DOMSource(parsedDoc);
 
         //validate
-//        validator.validate(source);
+        validator.validate(source);
 
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
